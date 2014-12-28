@@ -32,6 +32,7 @@
     "casper-chai": "^0.2.1",
     "casperjs": "^1.1.0-beta3",
     "chai": "^1.10.0",
+    "glob": "^4.3.2",
     "mocha": "^2.1.0",
     "phantomjs": "^1.9.13"
   }
