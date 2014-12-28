@@ -21,9 +21,15 @@ var server = app.listen(3000, function() {
       return process.stderr.write(msg);
     });
     return child.on('exit', function(code) {
-      mongoose.disconnect();
-      server.close();
-      return process.exit(code);
+      mongoose.connection.db.dropDatabase(function() {
+        mongoose.disconnect(function() {
+          console.log('disconnected from db: ' + dbUri);
+          server.close(function() {
+            console.log('server closed');
+            return process.exit(code);
+          });         
+        });
+      });      
     });
   });
 });
