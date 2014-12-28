@@ -25,7 +25,8 @@
     "express-ejs-layouts": "^1.1.0",
     "express-session": "^1.9.3",
     "method-override": "^2.3.0",
-    "mongoose": "^3.8.21"
+    "mongoose": "^3.8.21",
+    "socket.io": "^1.2.1"
   },
   "devDependencies": {
     "casper-chai": "^0.2.1",
