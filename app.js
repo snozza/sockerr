@@ -9,7 +9,7 @@ var methodOverride = require('method-override');
 var models = require('./lib/models');
 var Schema = mongoose.Schema;
 
-var dbUri = 'mongodb://localhost/bitter_development';
+var dbUri = 'mongodb://localhost/chitter_development';
 var db = mongoose.connect(dbUri);
 
 app.set('view engine', 'ejs');
@@ -32,15 +32,18 @@ app.get('/', function(req, res) {
 app.get('/posts', function(req, res) {
   req.models.Post.find(function(err, posts) {
     if(err)
-      res.send(err)
+      res.send(err);
 
-    res.json(posts)
+    res.json(posts);
   });
 });
 
 app.post('/posts', function(req, res) {
-  new req.models.Post({body: req.body.post}).save();
-  res.redirect('/');
+  new req.models.Post({body: req.body.post}).save(function(err, data) {
+    if(err)
+      res.send(err);
+    res.json(data)
+  });
 });
 
 module.exports = app;

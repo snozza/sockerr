@@ -5,9 +5,18 @@ var mongoose = require('mongoose');
 
 dbUri = 'mongodb://localhost/chitter_test';
 
-mongoose.connect(dbUri, function() {
-  console.log('connected to db: ' + dbUri);
-});
+if(mongoose.connection.db) { 
+  mongoose.disconnect(function() {
+    mongoose.connect(dbUri, function() {
+      console.log('connected to db: ' + dbUri);
+    });
+  })
+}
+else {
+  mongoose.connect(dbUri, function() {
+    console.log('connected to db: ' + dbUri);
+  });
+};
 
 var server = app.listen(3000, function() {
   var port = 3000
