@@ -2,8 +2,9 @@ var glob = require('glob');
 var spawn = require('child_process').spawn;
 var app = require('./app');
 var mongoose = require('mongoose');
+var env = require('./lib/config/test_db');
 
-dbUri = 'mongodb://localhost/chitter_test';
+var dbUri = process.env.MONGOHQ_URL;
 
 if(mongoose.connection.db) { 
   mongoose.disconnect(function() {
