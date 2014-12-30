@@ -93,19 +93,18 @@
     <script> 
     $(document).ready(function() {
         $.get('http://localhost:3000/posts', function(data) {
-            console.log(data);
-            $.each(data, function(index, post) {
+            $.each(data.reverse(), function(index, post) {
                 console.log(post)
-                $('.post-post').append('<li class="post-body">' + post.body + '<p class="post-user">' + post.createdAt + '</p></li>');
+                $('.post-post').append('<li class="post-body">' + post.body + '<p class="post-user">' + post.createdAt + '</p></li>').fadeIn('slow');
             });
         });
 
         $('#submit').on('click', function(event) {
-            // event.preventDefault();
+            event.preventDefault();
             var body = $('#body').val();
             console.log(body);
             $.post('http://localhost:3000/posts', {post: body}, function(data) {
-                $('.post-post').append('<li class="post-body">' + data.body + '<p class="post-user">' + data.createdAt + '</p></li>');
+                $('<li class="post-body">' + data.body + '<p class="post-user">' + data.createdAt + '</p></li>').hide().prependTo('.post-post').fadeIn('slow');
             });
         });
 
