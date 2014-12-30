@@ -4,7 +4,7 @@ var app = require('./app');
 var mongoose = require('mongoose');
 var env = require('./lib/config/test_db');
 
-var dbUri = process.env.NODE_ENV;
+var dbUri = process.env.MONGOHQ_URL;
 
 if(mongoose.connection.db) { 
   mongoose.disconnect(function() {
