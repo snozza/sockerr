@@ -63,23 +63,36 @@
         <!-- /.container -->
     </nav>
 
-    <!-- Page Content -->
-    <section class="container">
-        <section class="row">
-            <article class="col-lg-12 text-center">
-                <h1>Chitter</h1>
-                <form id='new-post' action='/posts' method='post'>
-                    <input id='body' type='text' name='post' placeholder='Say Something'>
-                    <input type='submit' id='submit' value="Submit" class="button">
-                </form><br>    
-                <ul class="post-post">
-                
-                </ul>
-            </article>
+        <!-- Page Content -->
+        <section class="container">
+            <section class="row">
+                <article class="col-lg-12 text-center">
+    <% if(!login) { %>
+                    <form class="form-signin">
+                        <h2 class="form-signin-heading">Please sign in</h2>
+                        <input id='email' type="text" class="input-block-level" placeholder="Email address">
+                        <input id='password' type="password" class="input-block-level" placeholder="Password">
+                        <label class="checkbox">
+                          <input type="checkbox" value="remember-me"> Remember me
+                        </label>
+                        <button id="login" class="btn btn-large btn-primary" type="submit">Sign in</button>
+                    </form>
+    <% } %>
+    <% if(login) { %>
+                    <h1>Chitter</h1>
+                    <form id='new-post' action='/posts' method='post'>
+                        <input id='body' type='text' name='post' placeholder='Say Something'>
+                        <input type='submit' id='submit' value="Submit" class="button">
+                    </form><br>    
+                    <ul class="post-post">
+                    
+                    </ul>
+                </article>
 
+            </section>
         </section>
-    </section>
     <!-- /.container -->
+    <% } %>
 
     <!-- jQuery Version 1.11.1 -->
     <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
@@ -90,14 +103,18 @@
     <!--other Javascript -->
     <script> src="js/interface.js"</script>
 
-    <script> 
-    $(document).ready(function() {
+    <script>
+
+    function loadPosts() {
         $.get('http://localhost:3000/posts', function(data) {
             $.each(data.reverse(), function(index, post) {
                 console.log(post)
                 $('.post-post').append('<li class="post-body">' + post.body + '<p class="post-user">' + post.createdAt + '</p></li>').fadeIn('slow');
             });
         });
+    }; 
+
+    $(document).ready(function() {
 
         $('#submit').on('click', function(event) {
             event.preventDefault();
@@ -108,9 +125,37 @@
             });
         });
 
-    });
+        $("#login").on('click', function(event) {
+            event.preventDefault();
+            var email = $('#email').val();
+            var password = $('#password').val();
+            $.ajax({
+                type: "POST",
+                url: "/sessions",
+                data: {"email": email, "password":password},
+                cache: false,
+                success: function(result) {
+                    var page = $(location).attr('href');
+                    if(result == 'correct') {
+                        $('.form-signin').fadeOut('slow', function() {
+                            $(document.body).load(page).fadeIn('slow');
+                        });
+                    }
+                    else {
+                        console.log('fail');
+                        return false;
+                    }
+                }
+            }) 
+        });
 
+
+    });
     </script>
+
+    <% if(login) { %>
+        <script> loadPosts(); </script>
+    <% } %>
 
 </body>
 

@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var models = require('./lib/models');
 var Schema = mongoose.Schema;
+var session = require('express-session');
 
 var dbUri = process.env.MONGOHQ_URL || 'mongodb://localhost/chitter_development';
 var db = mongoose.connect(dbUri);
@@ -24,6 +25,11 @@ app.use(function(req, res, next) {
 app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+app.use(session({secret: "this is super secret"}));
+app.use(function(req, res, next) {
+  res.locals.login = req.session.user;
+  next();
+});
 
 require('./lib/routes.js')(app);
 
