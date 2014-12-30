@@ -101,7 +101,7 @@
         });
 
         $('#submit').on('click', function(event) {
-            event.preventDefault();
+            // event.preventDefault();
             var body = $('#body').val();
             console.log(body);
             $.post('http://localhost:3000/posts', {post: body}, function(data) {

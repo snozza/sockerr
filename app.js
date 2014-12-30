@@ -9,7 +9,7 @@ var methodOverride = require('method-override');
 var models = require('./lib/models');
 var Schema = mongoose.Schema;
 
-var dbUri = 'mongodb://localhost/chitter_development';
+var dbUri = process.env.MONGOHQ_URL || 'mongodb://localhost/chitter_development';
 var db = mongoose.connect(dbUri);
 
 app.set('view engine', 'ejs');
