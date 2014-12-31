@@ -13,7 +13,7 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/application.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <style>
@@ -65,19 +65,20 @@
 
         <!-- Page Content -->
         <section class="container">
+        <% if(!login) { %>
+                <form class="form-signin">
+                    <h2 class="form-signin-heading">Please sign in</h2>
+                    <input id='email' type="text" class="input-block-level" placeholder="Email address">
+                    <input id='password' type="password" class="input-block-level" placeholder="Password">
+                    <label class="checkbox">
+                      <input type="checkbox" id="myCheckbox" /><label for="myCheckbox">Remember Me</label>
+                    </label>
+                    <button id="login" class="btn btn-large btn-primary" type="submit">Sign in</button>
+                </form>
+        <% } %>
             <section class="row">
                 <article class="col-lg-12 text-center">
-    <% if(!login) { %>
-                    <form class="form-signin">
-                        <h2 class="form-signin-heading">Please sign in</h2>
-                        <input id='email' type="text" class="input-block-level" placeholder="Email address">
-                        <input id='password' type="password" class="input-block-level" placeholder="Password">
-                        <label class="checkbox">
-                          <input type="checkbox" value="remember-me"> Remember me
-                        </label>
-                        <button id="login" class="btn btn-large btn-primary" type="submit">Sign in</button>
-                    </form>
-    <% } %>
+    
     <% if(login) { %>
                     <h1>Chitter</h1>
                     <form id='new-post' action='/posts' method='post'>
