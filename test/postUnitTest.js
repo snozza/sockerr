@@ -21,4 +21,14 @@ describe('#create()', function() {
     });
   });
 
+  it('should be able to be deleted', function(done) {
+    new Post({body: "This will be deleted!"}).save(function(err, createdPost) {
+      Post.remove({body: "This will be deleted!"}, function() {
+        Post.find({body: "This will be deleted!"}, function(err, post) {
+          expect(post).to.be.empty;
+          done();
+        });
+      });
+    });
+  });
 });

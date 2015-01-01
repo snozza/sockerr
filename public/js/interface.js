@@ -1,8 +1,8 @@
 function loadPosts() {
   $.get('http://localhost:3000/posts', function(data) {
-      $.each(data.reverse(), function(index, post) {
-          console.log(post)
-          $('.post-post').append('<li class="post-body">' + post.body + '<p class="post-user">' + post.createdAt + '</p></li>').fadeIn('slow');
+      $.each(data, function(index, post) {
+          $('.post-post').prepend('<li class="post-body">' + post.body + '<p class="post-user">' + post.createdAt + 
+            '<br><br><button class="delete" data-id=' + post._id + ' type="submit">Delete</button></p></li>').fadeIn('slow');
       });
   });
 }
@@ -40,12 +40,26 @@ function validLogin() {
 $(document).ready(function() {
 
   $('#submit').on('click', function(event) {
-      event.preventDefault();
-      makePost();
+    event.preventDefault();
+    makePost();
   });
       
   $("#login").on('click', function(event) {
-      event.preventDefault();
-      validLogin();       
+    event.preventDefault();
+    validLogin();       
+  });
+
+  $('.post-post').on('click', '.delete', function() {
+    _this = this;
+    $.ajax({
+      url: '/posts',
+      type: 'DELETE',
+      data: {id: $(this).data('id')},
+      success: function(result) {
+        if(result == 'correct') {
+          $(_this).closest('.post-body').remove().fadeOut('slow');
+        }
+      }
+    });
   });
 });

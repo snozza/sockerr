@@ -113,8 +113,8 @@
         var socket = io();
         socket.on('new-post', function(data) {
             console.log('received something');
-            $('<li class="post-body">' + data.body + '<p class="post-user">' + 
-                data.createdAt + '</p></li>').hide().prependTo('.post-post').fadeIn('slow');
+            $('<li class="post-body">' + data.body + '<p class="post-user">' + data.createdAt + 
+            '<br><br><button class="delete" data-id=' + data._id + ' type="submit">Delete</button></p></li>').hide().prependTo('.post-post').fadeIn('slow');
         });
         </script>
     <% } %>
