@@ -39,7 +39,7 @@ require('./lib/routes.js')(app);
 io.on('connection', function(socket) {
   console.log('A new client connected: ' + socket.id);
   socket.on('new-post', function(data) {
-    socket.broadcast.emit('new-post', data);
+    io.sockets.emit('new-post', data);
   });
 });
 

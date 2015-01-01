@@ -10,8 +10,6 @@ function loadPosts() {
 function makePost() {
   var body = $('#body').val();
       $.post('http://localhost:3000/posts', {post: body}, function(data) {
-        $('<li class="post-body">' + data.body + '<p class="post-user">' + 
-          data.createdAt + '</p></li>').hide().prependTo('.post-post').fadeIn('slow');
           socket.emit('new-post', data);
       });
 }
