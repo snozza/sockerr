@@ -37,6 +37,19 @@ function validLogin() {
   });
 }
 
+function logout() {
+  $.ajax({
+    url: '/sessions',
+    type: 'DELETE',
+    success: function(result) {
+      var page = $(location).attr('href');
+      if(result == 'correct') {
+        $(document.body).load(page).fadeIn('slow');
+      }
+    }
+  });
+}
+
 $(document).ready(function() {
 
   $('#submit').on('click', function(event) {
@@ -47,6 +60,11 @@ $(document).ready(function() {
   $("#login").on('click', function(event) {
     event.preventDefault();
     validLogin();       
+  });
+
+  $('#logout').on('click', function(event) {
+    event.preventDefault();
+    logout();
   });
 
   $('.post-post').on('click', '.delete', function() {
