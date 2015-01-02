@@ -50,6 +50,22 @@ function logout() {
   });
 }
 
+function deletePost(post) {
+  var _id = $(post).data('id')
+  $.ajax({
+      url: '/posts',
+      type: 'DELETE',
+      data: {id: _id},
+      success: function(result) {
+        if(result == 'correct') {
+          console.log(_id);
+          socket.emit('delete-post', _id);
+        }
+      }
+  });
+}
+
+
 $(document).ready(function() {
 
   $('#submit').on('click', function(event) {
@@ -68,16 +84,6 @@ $(document).ready(function() {
   });
 
   $('.post-post').on('click', '.delete', function() {
-    _this = this;
-    $.ajax({
-      url: '/posts',
-      type: 'DELETE',
-      data: {id: $(this).data('id')},
-      success: function(result) {
-        if(result == 'correct') {
-          $(_this).closest('.post-body').remove().fadeOut('slow');
-        }
-      }
-    });
+    deletePost(this);  
   });
 });

@@ -39,8 +39,13 @@ require('./lib/routes.js')(app);
 
 io.on('connection', function(socket) {
   console.log('A new client connected: ' + socket.id);
+  
   socket.on('new-post', function(data) {
     io.sockets.emit('new-post', data);
+  });
+
+  socket.on('delete-post', function(_id) {
+    io.sockets.emit('delete-post', _id);
   });
 });
 
