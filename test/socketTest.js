@@ -9,16 +9,23 @@ describe('Server should receive and action socket emissions', function() {
     'forceNew': true
   };
 
-  it('should emit new-post', function(done) {
+  it('should emit new-post with data', function(done) {
     var socket = io.connect(process.env.URL, options);
-    socket.on('connect', function() {
       socket.on('new-post', function(data) {
-        console.log(data);
         expect(data).to.eql('testData');
-        socket.disconnect();
         done();
       });
       socket.emit('new-post', 'testData');
-    });
   });
+
+  it('should emit delete-post with id', function(done) {
+    var socket = io.connect(process.env.URL, options);
+    socket.on('delete-post', function(_id) {
+      expect(_id).to.exist
+      socket.disconnect();
+      done();
+    });
+    socket.emit('delete-post', '12345');
+  });
+
 });
