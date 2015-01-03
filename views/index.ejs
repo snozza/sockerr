@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -59,7 +59,7 @@
                         <a href="#">Signup</a>
                     </li>
                 <% } else { %>
-                    <li>
+                        <li>
                         <a id='logout' href='#'>Log out</a>
                     </li>
                 <% } %>        
@@ -72,17 +72,11 @@
 
         <!-- Page Content -->
         <section class="container">
-        <% if(!login) { %>
-                <form class="form-signin">
-                    <h2 class="form-signin-heading">Please sign in</h2>
-                    <input id='email' type="text" class="input-block-level" placeholder="Email address">
-                    <input id='password' type="password" class="input-block-level" placeholder="Password">
-                    <label class="checkbox">
-                      <input type="checkbox" id="myCheckbox" /><label for="myCheckbox">Remember Me</label>
-                    </label>
-                    <button id="login" class="btn btn-large btn-primary" type="submit">Sign in</button>
-                </form>
-        <% } %>
+            <section class="signin">
+            </section>
+            <section class="signup">
+            </section>
+        
             <section class="row">
                 <article class="col-lg-12 text-center">
     
@@ -129,6 +123,22 @@
         });
         </script>
     <% } %>
+
+    
+        <script>
+            function signinForm() {
+                $('.signin').append('<form class="form-signin">')
+                $('.signin form').append('<h2 class="form-signin-heading">Please sign in</h2>');
+                $('.signin form').append('<input id="email" type="text" class="input-block-level" placeholder="Email address">');
+                $('.signin form').append('<input id="password" type="password" class="input-block-level" placeholder="Password">');
+                $('.signin form').append('<label class="checkbox"> <input type="checkbox" id="myCheckbox" /><label for="myCheckbox">Remember Me</label>');
+                $('.signin form').append('<button id="login" class="btn btn-large btn-primary" type="submit">Sign in</button>');
+                $('.signin form').append('</form>');
+            }
+                    
+            signinForm();
+        </script>
+ 
 
 </body>
 

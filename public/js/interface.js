@@ -26,9 +26,8 @@ function validLogin() {
       var page = $(location).attr('href');
       if(result == 'correct') {
           $('.form-signin').fadeOut('slow', function() {
-              $(document.body).load(page).fadeIn('slow');
-          });
-      }
+              $(document.body).load(page).fadeIn('slow')
+            });
       else {
           console.log('fail');
           return false;
