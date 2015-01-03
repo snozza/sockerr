@@ -25,6 +25,10 @@
    margin-right:0;
 }
 
+#signup {
+  display: none;
+}
+
 .wrapper:before, .wrapper:after,
 .column:before, .column:after {
     content: "";

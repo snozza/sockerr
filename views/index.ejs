@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -53,13 +53,13 @@
                 <ul class="nav navbar-nav">
                 <% if(!login) { %>
                     <li>
-                        <a href="/">Login</a>
+                        <a id="loginbutton" href="/">Login</a>
                     </li>
                     <li>
-                        <a href="#">Signup</a>
+                        <a id="signupbutton" href="#">Signup</a>
                     </li>
                 <% } else { %>
-                        <li>
+                    <li>
                         <a id='logout' href='#'>Log out</a>
                     </li>
                 <% } %>        
@@ -72,11 +72,27 @@
 
         <!-- Page Content -->
         <section class="container">
-            <section class="signin">
-            </section>
-            <section class="signup">
-            </section>
-        
+        <% if(!login) { %>
+                <form id="signin" class="form-signin">
+                    <h2 class="form-signin-heading">Please sign in</h2>
+                    <input id='email' type="text" class="input-block-level" placeholder="Email address">
+                    <input id='password' type="password" class="input-block-level" placeholder="Password">
+                    <label class="checkbox">
+                      <input type="checkbox" id="myCheckbox" /><label for="myCheckbox">Remember Me</label>
+                    </label>
+                    <button id="login" class="btn btn-large btn-primary" type="submit">Sign in</button>
+                </form>
+
+                <form id="signup" class="form-signin">
+                <h2 class="form-signin-heading">Please sign up</h2>
+                    <input id='email' type="text" class="input-block-level" placeholder="Email address">
+                    <input id='username' name="username" type="text" placeholder="username">
+                    <input id='password' type="password" class="input-block-level" placeholder="Password">
+                    <input id='name' name="full_name" type="text" placeholder="Full Name">  
+                    <button id="new-user" class="btn btn-large btn-primary" type="submit">Signup</button>
+                </form>
+        <% } %>
+
             <section class="row">
                 <article class="col-lg-12 text-center">
     
@@ -124,21 +140,13 @@
         </script>
     <% } %>
 
-    
-        <script>
-            function signinForm() {
-                $('.signin').append('<form class="form-signin">')
-                $('.signin form').append('<h2 class="form-signin-heading">Please sign in</h2>');
-                $('.signin form').append('<input id="email" type="text" class="input-block-level" placeholder="Email address">');
-                $('.signin form').append('<input id="password" type="password" class="input-block-level" placeholder="Password">');
-                $('.signin form').append('<label class="checkbox"> <input type="checkbox" id="myCheckbox" /><label for="myCheckbox">Remember Me</label>');
-                $('.signin form').append('<button id="login" class="btn btn-large btn-primary" type="submit">Sign in</button>');
-                $('.signin form').append('</form>');
-            }
-                    
-            signinForm();
-        </script>
- 
+    <script>
+    $('#signupbutton').on('click', function() {
+        $('#signin').fadeOut('slow', function() {
+            $('#signup').fadeIn('slow');
+        });
+    });
+    </script>
 
 </body>
 
