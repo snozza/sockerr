@@ -1,4 +1,4 @@
-var expect = require('chai').expect;
+var expect = require('chai').expect
 var socket = require('socket.io');
 var io = require('socket.io-client');
 
