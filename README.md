@@ -1,7 +1,7 @@
 Sockerr - A Twitter clone (version 2);
 ========================
 
-## Sockerr (version 2);
+## Sockerr (version 2)
 
 ### Introduction
 
