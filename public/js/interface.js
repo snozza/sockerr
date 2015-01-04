@@ -27,8 +27,10 @@ function validLogin() {
       if(res.result == 'correct') {
           $('#signin').fadeOut('slow', function() {
               $(document.body).load(page, function() {
-                loginNotice(res.message);
-              }).fadeIn('slow')
+                $(this).fadeIn('slow', function() {
+                  loginNotice(res.message);
+                });
+              });
             });
       }
       else {
@@ -55,8 +57,10 @@ function signup() {
       if(res.result == 'correct') {
         $('#signup').fadeOut('slow', function() {
           $(document.body).load(page, function() {
-            loginNotice(res.message);
-          }).fadeIn('slow');
+            $(this).fadeIn('slow', function() {
+              loginNotice(res.message);
+            });
+          });
         });
       }
       else {
