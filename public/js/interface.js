@@ -1,22 +1,27 @@
-function loadPosts() {
+function Interface() {
+  this.timeout;
+};
+
+Interface.prototype.loadPosts = function() {
   $.get('http://localhost:3000/posts', function(data) {
       $.each(data, function(index, post) {
           $('.post-post').prepend('<li class="post-body">' + post.body + '<p class="post-user">' + post.createdAt + 
             '<br><br><button class="delete" data-id=' + post._id + ' type="submit">Delete</button></p></li>').fadeIn('slow');
       });
   });
-}
+};
 
-function makePost() {
+Interface.prototype.makePost = function() {
   var body = $('#body').val();
       $.post('http://localhost:3000/posts', {post: body}, function(data) {
           socket.emit('new-post', data);
       });
-}
+};
 
-function validLogin() {
+Interface.prototype.validLogin = function() {
   var email = $('#email').val();
   var password = $('#password').val();
+  _this = this;
   $.ajax({
     type: "POST",
     url: "/sessions",
@@ -28,24 +33,25 @@ function validLogin() {
           $('#signin').fadeOut('slow', function() {
               $(document.body).load(page, function() {
                 $(this).fadeIn('slow', function() {
-                  loginNotice(res.message);
+                  _this.loginNotice(res.message);
                 });
               });
             });
       }
       else {
-          console.log(res);
-          displayErrors(res.message);
+        _this.displayErrors(res.message)
+
       }
     }
   });
-}
+};
 
-function signup() {
+Interface.prototype.signup = function() {
   var email = $('#new-email').val();
   var password = $('#new-password').val();
   var fullname = $('#new-name').val();
   var username = $('#new-username').val();
+  _this = this;
   $.ajax({
     url: '/users',
     type: 'POST',
@@ -58,40 +64,41 @@ function signup() {
         $('#signup').fadeOut('slow', function() {
           $(document.body).load(page, function() {
             $(this).fadeIn('slow', function() {
-              loginNotice(res.message);
+              _this.loginNotice(res.message);
             });
           });
         });
       }
       else {
-        console.log(res);
-        displayErrors(res);
+        _this.displayErrors(res);
       }
     }
   });
-}
+};
 
-function displayErrors(errorList) {
-  if(errorList.length > 0) {
-    $('.tempMessages').append('<ul class="flash error"></ul>');
-    for(var i=0; i < errorList.length; i++) {
-      $('.flash').append('<li>' + errorList[i] + '</li>');
-    }
-      setTimeout(function() {
+Interface.prototype.displayErrors = function(errorList) {
+  console.log(this.timeout);
+  clearTimeout(this.timeout);
+    if(errorList.length > 0) {
+      $('.tempMessages').html('<ul class="flash error"></ul>');
+        for(var i=0; i < errorList.length; i++) {
+          $('.flash').append('<li>' + errorList[i] + '</li>');
+        }       
+        this.timeout = setTimeout(function() {
         $('.flash').fadeOut('slow', function() {
           $(this).remove() })}, 5000);
-    }
-}
-    
+      }
+};    
 
-function loginNotice(message) {
-  $('.tempMessages').append('<section class="flash notice">' + message + '</section>');
-    setTimeout(function() {
+Interface.prototype.loginNotice = function(message) {
+
+  $('.tempMessages').html('<section class="flash notice">' + message + '</section>');
+    var timeout = setTimeout(function() {
       $('.flash').fadeOut('slow', function() {
         $(this).remove() })}, 5000);
-}   
+};   
 
-function logout() {
+Interface.prototype.logout = function() {
   $.ajax({
     url: '/sessions',
     type: 'DELETE',
@@ -102,9 +109,9 @@ function logout() {
       }
     }
   });
-}
+};
 
-function deletePost(post) {
+Interface.prototype.deletePost = function(post) {
   var _id = $(post).data('id')
   $.ajax({
       url: '/posts',
@@ -112,36 +119,37 @@ function deletePost(post) {
       data: {id: _id},
       success: function(result) {
         if(result == 'correct') {
-          console.log(_id);
           socket.emit('delete-post', _id);
         }
       }
   });
-}
+};
 
 $(document).ready(function() {
 
+  var interfaceManager = new Interface();
+
   $('#submit').on('click', function(event) {
     event.preventDefault();
-    makePost();
+    interfaceManager.makePost();
   });
       
   $("#login").on('click', function(event) {
     event.preventDefault();
-    validLogin();       
+    interfaceManager.validLogin();       
   });
 
   $('#logout').on('click', function(event) {
     event.preventDefault();
-    logout();
+    interfaceManager.logout();
   });
 
   $('#new-user').on('click', function(event) {
     event.preventDefault();
-    signup();
+    interfaceManager.signup();
   });
 
   $('.post-post').on('click', '.delete', function() {
-    deletePost(this);  
+    interfaceManager.deletePost(this);  
   });
 });

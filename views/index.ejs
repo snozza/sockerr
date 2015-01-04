@@ -129,7 +129,7 @@
     <script type="text/javascript" src="js/interface.js"></script>
 
     <% if(login) { %>
-        <script> loadPosts(); 
+        <script> interfaceManager.loadPosts(); 
         var socket = io();
         socket.on('new-post', function(data) {
             console.log('received something');
