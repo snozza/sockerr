@@ -53,7 +53,7 @@
                 <ul class="nav navbar-nav">
                 <% if(!login) { %>
                     <li>
-                        <a id="loginbutton" href="/">Login</a>
+                        <a id="loginbutton" href="#">Login</a>
                     </li>
                     <li>
                         <a id="signupbutton" href="#">Signup</a>
@@ -87,8 +87,8 @@
                 <h2 class="form-signin-heading">Please sign up</h2>
                     <input id='email' type="text" class="input-block-level" placeholder="Email address">
                     <input id='username' name="username" type="text" placeholder="username">
-                    <input id='password' type="password" class="input-block-level" placeholder="Password">
-                    <input id='name' name="full_name" type="text" placeholder="Full Name">  
+                    <input id='name' name="full_name" type="text" placeholder="Full Name"> 
+                    <input id='password' type="password" class="input-block-level" placeholder="Password"> 
                     <button id="new-user" class="btn btn-large btn-primary" type="submit">Signup</button>
                 </form>
         <% } %>
@@ -144,6 +144,13 @@
     $('#signupbutton').on('click', function() {
         $('#signin').fadeOut('slow', function() {
             $('#signup').fadeIn('slow');
+        });
+    });
+    </script>
+    <script>
+    $('#loginbutton').on('click', function() {
+        $('#signup').fadeOut('slow', function() {
+            $('#signin').fadeIn('slow');
         });
     });
     </script>

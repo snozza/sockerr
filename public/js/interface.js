@@ -20,13 +20,13 @@ function validLogin() {
   $.ajax({
     type: "POST",
     url: "/sessions",
-    data: {"email": email, "password":password},
+    data: {email: email, password: password},
     cache: false,
     success: function(result) {
       var page = $(location).attr('href');
       if(result == 'correct') {
           $('#signin').fadeOut('slow', function() {
-              $(document.body).load(page).fadeIn('slow')
+              $(document.body).load(page).fadeIn('slow');
             });
       }
       else {
@@ -36,6 +36,32 @@ function validLogin() {
     }
   });
 }
+
+function signup() {
+  var email = $('#email').val();
+  var password = $('#password').val();
+  var fullname = $('#name').val();
+  var username = $('#username').val();
+  $.ajax({
+    url: '/users',
+    type: 'POST',
+    data: {email: email, password: password, fullname: fullname,
+      username: username},
+    success: function(result) {
+      var page = $(location).attr('href');
+      if(result == 'correct') {
+        $('#signup').fadeOut('slow', function() {
+          $(document.body).load(page).fadeIn('slow');
+        });
+      }
+      else {
+        console.log('fail');
+        return false;
+      }
+    }
+  });
+}
+    
 
 function logout() {
   $.ajax({
@@ -65,7 +91,6 @@ function deletePost(post) {
   });
 }
 
-
 $(document).ready(function() {
 
   $('#submit').on('click', function(event) {
@@ -81,6 +106,11 @@ $(document).ready(function() {
   $('#logout').on('click', function(event) {
     event.preventDefault();
     logout();
+  });
+
+  $('#new-user').on('click', function(event) {
+    event.preventDefault();
+    signup();
   });
 
   $('.post-post').on('click', '.delete', function() {
