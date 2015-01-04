@@ -27,9 +27,7 @@ function validLogin() {
       if(res.result == 'correct') {
           $('#signin').fadeOut('slow', function() {
               $(document.body).load(page, function() {
-                $('.tempMessages').append('<section class="flash notice">' + res.message + '</section>');
-                  setTimeout(function() {
-                    $('.flash').remove().fadeOut('slow')}, 5000);
+                loginNotice(res.message);
               }).fadeIn('slow')
             });
       }
@@ -42,30 +40,52 @@ function validLogin() {
 }
 
 function signup() {
-  var email = $('#email').val();
-  var password = $('#password').val();
-  var fullname = $('#name').val();
-  var username = $('#username').val();
+  var email = $('#new-email').val();
+  var password = $('#new-password').val();
+  var fullname = $('#new-name').val();
+  var username = $('#new-username').val();
   $.ajax({
     url: '/users',
     type: 'POST',
     data: {email: email, password: password, fullname: fullname,
       username: username},
-    success: function(result) {
+    cache: false,
+    success: function(res) {
       var page = $(location).attr('href');
-      if(result == 'correct') {
+      if(res.result == 'correct') {
         $('#signup').fadeOut('slow', function() {
-          $(document.body).load(page).fadeIn('slow');
+          $(document.body).load(page, function() {
+            loginNotice(res.message);
+          }).fadeIn('slow');
         });
       }
       else {
-        console.log('fail');
-        return false;
+        console.log(res);
+        displayErrors(res);
       }
     }
   });
 }
+
+function displayErrors(errorList) {
+  if(errorList.length > 0) {
+    $('.tempMessages').append('<ul class="flash error"></ul>');
+    for(var i=0; i < errorList.length; i++) {
+      $('.flash').append('<li>' + errorList[i] + '</li>');
+    }
+      setTimeout(function() {
+        $('.flash').fadeOut('slow', function() {
+          $(this).remove() })}, 5000);
+    }
+}
     
+
+function loginNotice(message) {
+  $('.tempMessages').append('<section class="flash notice">' + message + '</section>');
+    setTimeout(function() {
+      $('.flash').fadeOut('slow', function() {
+        $(this).remove() })}, 5000);
+}   
 
 function logout() {
   $.ajax({
