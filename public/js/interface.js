@@ -22,11 +22,15 @@ function validLogin() {
     url: "/sessions",
     data: {email: email, password: password},
     cache: false,
-    success: function(result) {
+    success: function(res) {
       var page = $(location).attr('href');
-      if(result == 'correct') {
+      if(res.result == 'correct') {
           $('#signin').fadeOut('slow', function() {
-              $(document.body).load(page).fadeIn('slow');
+              $(document.body).load(page, function() {
+                $('.tempMessages').append('<section class="flash notice">' + res.message + '</section>');
+                  setTimeout(function() {
+                    $('.flash').remove().fadeOut('slow')}, 5000);
+              }).fadeIn('slow')
             });
       }
       else {

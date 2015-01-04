@@ -103,3 +103,21 @@ input[type="checkbox"] {
 #login, #new-user {
   font-size: 25px;
 }
+
+.flash {
+  text-align: center;
+  font-size: 1.5em;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 4px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+  color: #fff
+}
+
+  .flash.notice {
+    background-color: green;
+  }
+
+  .flash.error {
+    background-color: orange;
+  }
