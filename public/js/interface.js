@@ -34,8 +34,8 @@ function validLogin() {
             });
       }
       else {
-          console.log('fail');
-          return false;
+          console.log(res);
+          displayErrors(res.message);
       }
     }
   });
