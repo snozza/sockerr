@@ -2,7 +2,7 @@ var glob = require('glob');
 var spawn = require('child_process').spawn;
 var app = require('./app');
 var mongoose = require('mongoose');
-var env = require('./lib/config/test_db');
+var env = require('./lib/config/test_env');
 
 var dbUri = process.env.MONGOHQ_URL;
 

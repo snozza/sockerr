@@ -1,8 +1,6 @@
 var express = require('express');
 var app = express();
 var http = require('http');
-var server = http.createServer(app);
-var io = require('socket.io')(server);
 var path = require('path');
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
@@ -49,8 +47,34 @@ io.on('connection', function(socket) {
   });
 });
 
+app.use(function(req, res, next) {
+  var err = new Error('not found');
+  err.status = 404;
+  next(err);
+});
+
+if(app.get('env') === 'development') {
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err
+    });
+  });
+}
+
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: {}
+  });
+});
+
 module.exports = server;
+
 if(!module.parent) {
+  var env = require('./lib/config/dev_env');
   server.listen(3000, function() {
     console.log('listening on 3000');
   })

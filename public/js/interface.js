@@ -125,9 +125,9 @@ Interface.prototype.deletePost = function(post) {
   });
 };
 
-$(document).ready(function() {
+var interfaceManager = new Interface();
 
-  var interfaceManager = new Interface();
+$(document).ready(function() {
 
   $('#submit').on('click', function(event) {
     event.preventDefault();
