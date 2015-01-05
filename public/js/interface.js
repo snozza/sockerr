@@ -5,10 +5,10 @@ function Interface() {
 Interface.prototype.loadPosts = function() {
   $.get('http://localhost:3000/posts', function(data) {
       $.each(data, function(index, post) {
-          $('.post-post').prepend('<li class="post-body">' + post.body + '<p class="post-user">' + post.createdAt + 
-            '<br><br><button class="delete" data-id=' + post._id + ' type="submit">Delete</button></p></li>').fadeIn('slow');
+          $('<li class="post-body"><p class="post-user"><strong>' + post.full_name +'</strong> ' + post.createdAt.replace(/T/, ' ').replace(/\..+/, '') + '</p>' + post.body + 
+            '<br><button class="post-user" data-id=' + post._id + ' type="submit">Delete</button></li>').hide().prependTo('.post-post').fadeIn('slow');
       });
-  });
+    });
 };
 
 Interface.prototype.makePost = function() {
