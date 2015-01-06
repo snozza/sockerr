@@ -11,10 +11,20 @@ Interface.prototype.loadPosts = function() {
     });
 };
 
+Interface.prototype.loadGlobalPosts = function() {
+  $.get('http://localhost:3000/allposts', function(data) {
+    $.each(data, function(index, post) {
+      $('<li class="post-body"><p class="post-user"><strong>' + post.full_name +'</strong> ' + post.createdAt.replace(/T/, ' ').replace(/\..+/, '') + '</p>' + post.body + 
+            '<br><button class="post-user delete" data-id=' + post._id + ' type="submit">Delete</button></li>').hide().prependTo('.post-post').fadeIn('slow');
+      });
+  });
+};
+
 Interface.prototype.makePost = function() {
-  var body = $('#body').val();
-      $.post('http://localhost:3000/posts', {post: body}, function(data) {
+  var body = $('#body')
+      $.post('http://localhost:3000/posts', {post: body.val()}, function(data) {
           socket.emit('new-post', data);
+          body.val('');
       });
 };
 
@@ -105,6 +115,7 @@ Interface.prototype.logout = function() {
     success: function(result) {
       var page = $(location).attr('href');
       if(result == 'correct') {
+        socket.disconnect();
         $(document.body).load(page).fadeIn('slow');
       }
     }
@@ -163,5 +174,15 @@ $(document).ready(function() {
     $('#signup').fadeOut('slow', function() {
       $('#signin').fadeIn('slow');
     });
+  });
+
+  $('#home').on('click', function() {
+    socket.emit('leave-main');
+    interfaceManager.loadPosts();
+  });
+
+  $('#mainRoom').on('click', function() {
+    socket.emit('main-room');
+    interfaceManager.loadGlobalPosts();
   });
 });
