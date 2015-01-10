@@ -98,11 +98,67 @@
                     <button id="new-user" class="btn btn-large btn-primary" type="submit">Signup</button>
                 </form>
         <% } %>
-
+        <% if(login) { %>
             <section class="row">
-                <article class="col-lg-12 text-center">
+                <div class="span4">
+                                <div class="col-sm-4 col-md-4 user-details">
+                        <div class="">
+                            <img style="height:auto; width:auto; max-width:200px; max-height:200px;" src="https://avatars3.githubusercontent.com/u/6886844?v=3&s=460" alt="A Snead" title="A Snead" class="img-circle">
+                        </div>
+                        <div class="user-info-block">
+                            <div class="user-heading">
+                                <h3>Andrew Snead</h3>
+                                <span class="help-block">London, UK</span>
+                            </div>
+                            <ul class="navigation">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#information">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#settings">
+                                        <span class="glyphicon glyphicon-cog"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#email">
+                                        <span class="glyphicon glyphicon-envelope"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#events">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="user-body">
+                                <div class="tab-content">
+                                    <div id="information" class="tab-pane active">
+                                        <h4>Account Information</h4>
+                                    </div>
+                                    <div id="settings" class="tab-pane">
+                                        <h4>Settings</h4>
+                                    </div>
+                                    <div id="email" class="tab-pane">
+                                        <h4>Send Message</h4>
+                                    </div>
+                                    <div id="events" class="tab-pane">
+                                        <h4>Events</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="span8">
+
     
-    <% if(login) { %>
+                <article class="post-center">
+    
                     <h1>Sockerr</h1>
                     <form id='new-post' action='/posts' method='post'>
                         <input id='body' type='text' name='post' placeholder='Say Something'>
@@ -112,6 +168,7 @@
                     
                     </ul>
                 </article>
+        </div>
 
             </section>
         </section>
