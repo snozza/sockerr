@@ -3,15 +3,19 @@
  /* margin-left: 30%;
   margin-right: 30%;*/
   margin-top: 10px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  
   padding: 10px;
   list-style: none;
+  text-align: center;
 }
 
 .post-center {
   margin-left: 30%;
   margin-right: 30%;
+  background-color: #fff;
+  padding: 10px;
   text-align: center;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
 }
 
 .post-body {

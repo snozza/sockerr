@@ -183,6 +183,8 @@ $(document).ready(function() {
 
   $('#mainRoom').on('click', function() {
     socket.emit('main-room');
-    interfaceManager.loadGlobalPosts();
+    $('.span4').fadeOut(function() {
+      interfaceManager.loadGlobalPosts();
+    });
   });
 });
