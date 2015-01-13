@@ -41,7 +41,7 @@ io.on('connection', function(socket) {
   socket.on('main-room', function() {
     socket.join('mainRoom', function() {
       console.log(io.nsps['/'].adapter.rooms['mainRoom']);
-      socket.emit('join-room');
+      socket.emit('join-room', 'mainRoom');
     });
   });
 
@@ -54,7 +54,6 @@ io.on('connection', function(socket) {
     var mainRoom = io.nsps['/'].adapter.rooms['mainRoom']
     io.to('mainRoom').emit('new-post', data);
     if((!!mainRoom && !(socket.id in mainRoom)) || !mainRoom) {
-      console.log('hi there I made it')
       socket.emit('new-post', data);
     }
   });

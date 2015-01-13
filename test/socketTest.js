@@ -18,6 +18,16 @@ describe('Server should receive and action socket emissions', function() {
       socket.emit('new-post', 'testData');
   });
 
+  it('should join mainRoom upon emission', function(done) {
+    var socket = io.connect(process.env.URL, options);
+    socket.on('join-room', function(data) {
+      expect(data).to.eql('mainRoom');
+      socket.disconnect();
+      done();
+    });
+    socket.emit('main-room');
+  });
+
   it('should emit delete-post with id', function(done) {
     var socket = io.connect(process.env.URL, options);
     socket.on('delete-post', function(_id) {
@@ -25,6 +35,7 @@ describe('Server should receive and action socket emissions', function() {
       socket.disconnect();
       done();
     });
+    socket.emit('main-room');
     socket.emit('delete-post', '12345');
   });
 
