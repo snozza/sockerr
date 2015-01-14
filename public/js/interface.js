@@ -3,7 +3,9 @@ function Interface() {
 };
 
 Interface.prototype.loadPosts = function() {
+  console.log('got here');
   $.get('http://localhost:3000/posts', function(data) {
+    console.log(data)
       $.each(data, function(index, post) {
           $('<li class="post-body"><p class="post-user"><strong>' + post.full_name +'</strong> ' + post.createdAt.replace(/T/, ' ').replace(/\..+/, '') + '</p>' + post.body + 
             '<br><button class="post-user delete" data-id=' + post._id + ' type="submit">Delete</button></li>').hide().prependTo('.post-post').fadeIn('slow');
@@ -177,11 +179,15 @@ $(document).ready(function() {
   });
 
   $('#home').on('click', function() {
+    $('.post-post').empty();
     socket.emit('leave-main');
-    interfaceManager.loadPosts();
+    $('.span4').fadeIn(function() {
+      interfaceManager.loadPosts();
+    });
   });
 
   $('#mainRoom').on('click', function() {
+    $('.post-post').empty();
     socket.emit('main-room');
     $('.span4').fadeOut(function() {
       interfaceManager.loadGlobalPosts();

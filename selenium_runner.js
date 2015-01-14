@@ -3,26 +3,17 @@ var spawn = require('child_process').spawn;
 var app = require('./app');
 var mongoose = require('mongoose');
 var env = require('./lib/config/test_env');
+var webdriverio = require('../node_modules/webdriverio');
 
 var dbUri = process.env.MONGOHQ_URL;
+var client = {};
 
-if(mongoose.connection.db) { 
-  mongoose.disconnect(function() {
-    mongoose.connect(dbUri, function() {
-      console.log('connected to db: ' + dbUri);
-    });
-  })
-}
-else {
-  mongoose.connect(dbUri, function() {
-    console.log('connected to db: ' + dbUri);
-  });
-};
+client = webdriverio.remote({ desiredCapabilities: {browserName: 'chrome'} });
 
 var server = app.listen(3000, function() {
   var port = 3000;
   process.env.URL = 'http://localhost:' + port;
-  return glob('test/', function(err, filename) {
+  return glob('test/featuresSelenium', function(err, filename) {
     var child = spawn('mocha', ['test'].concat(filename));
     child.stdout.on('data', function(msg) {
       return process.stdout.write(msg);

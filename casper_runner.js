@@ -20,7 +20,7 @@ else {
 };
 
 var server = app.listen(3000, function() {
-  var port = 3000
+  var port = 3000;
   process.env.URL = 'http://localhost:' + port;
   return glob('test/features', function(err, filename) {
     var child = spawn('casperjs', ['test'].concat(filename));

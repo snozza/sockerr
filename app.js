@@ -59,7 +59,7 @@ io.on('connection', function(socket) {
   });
 
   socket.on('delete-post', function(_id) {
-    io.to('mainRoom').emit('delete-post', _id);
+    io.sockets.emit('delete-post', _id);
   });
 
   socket.on('disconnect', function() {
