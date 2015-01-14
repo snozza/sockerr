@@ -34,10 +34,7 @@ var server = app.listen(3000, function() {
       mongoose.connection.db.dropDatabase(function() {
         mongoose.disconnect(function() {
           console.log('disconnected from db: ' + dbUri);
-          server.close(function() {
-            console.log('server closed');
-            return process.exit(code);
-          });         
+            return process.exit(code);    
         });
       });      
     });

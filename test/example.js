@@ -4,11 +4,15 @@ var User = require('../lib/models/User');
 
 describe('Main page tests', function(){
 
-
-
     this.timeout(99999999);
     var client = {};
-    var waitFor;
+
+    function login() {
+      client
+        .setValue('#email', 'test@test.com')
+        .setValue('#password', 'test')
+        .click('#login')
+    }
 
     before(function(done){
       new User({username: "test", email: "test@test.com",
@@ -23,12 +27,10 @@ describe('Main page tests', function(){
         .url('http://localhost:3000')
         .getTitle(function(err, title) {
           console.log(title);
-          expect(err).to.eql(undefined);
+          expect(err).to.not.be.true;
           expect(title).to.eql('Sockerr');
         })
-        .element('.post-post', function(err, post) {
-          expect(post).to.not.exist
-        })
+
        
         .call(done);
     });
@@ -36,14 +38,29 @@ describe('Main page tests', function(){
     it('should be able to login', function(done) {
       client
         .url('http://localhost:3000')
-        .setValue('#email', 'test@test.com')
-        .setValue('#password', 'test')
-        .click('#login')
+        .element('.post-post', function(err, post) {
+          expect(post).to.not.exist
+        })
+        .then(login())
         .waitForExist('.post-post', 1000, function(err, post) {
+          expect(err).to.not.be.true
           expect(post).to.be.true;
         })
         .call(done);     
     })
+
+    it('should be able to see a new post instantly', function(done) {
+      client
+        .url('http://localhost:3000')
+        .waitForExist('#body', 1000)
+        .setValue('#body', 'Hello, World!')
+        .click('#submit')
+        .waitForExist('.post-body', 1000)
+        .getText('.post-body', function(err, val) {
+          expect(val).to.contain('Hello, World!');
+        })
+        .call(done);
+    });
 
 
     after(function(done) {
