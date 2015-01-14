@@ -62,9 +62,21 @@ describe('Main page tests', function(){
         .call(done);
     });
 
-    // it('should be able to delete a post', function(done) {
-    //   client.
-    //     url('http://localhost:3000')
+    it('should be able to delete a post', function(done) {
+      client.
+        url('http://localhost:3000')
+        .getAttribute('.delete', 'data-id', function(err, data) {
+          console.log(data);
+        })
+        .click('.delete')
+        .waitForExist('.delete', 2000, true)
+        .isExisting('.delete', function(err, val) {
+          expect(val).to.be.false
+        })
+        .call(done);
+
+    });
+
 
 
     after(function(done) {

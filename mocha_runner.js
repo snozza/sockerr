@@ -23,7 +23,7 @@ var server = app.listen(3000, function() {
   var port = 3000;
   process.env.URL = 'http://localhost:' + port;
   return glob('test', function(err, filename) {
-    var child = spawn('mocha', ['test', '--recursive'].concat(filename));
+    var child = spawn('mocha', ['--recursive'].concat(filename));
     child.stdout.on('data', function(msg) {
       return process.stdout.write(msg);
     });
