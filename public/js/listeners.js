@@ -6,7 +6,7 @@ socket.on('join-room', function() {
 });
 
 socket.on('new-post', function(data) {
-    $('<li class="post-body"><p class="post-user"><strong>' + data.full_name +'</strong> ' + data.createdAt.replace(/T/, ' ').replace(/\..+/, '') + '</p>' + data.body + 
+  $('<li class="post-body"><p class="post-user"><strong>' + data.full_name +'</strong> ' + data.createdAt.replace(/T/, ' ').replace(/\..+/, '') + '</p>' + data.body + 
     '<br><button class="post-user delete" data-id=' + data._id + ' type="submit">Delete</button></li>').hide().prependTo('.post-post').fadeIn('slow');
 });
 
