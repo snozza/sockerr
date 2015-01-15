@@ -26,27 +26,15 @@ describe('Main page tests', function(){
       .getTitle(function(err, title) {
         expect(err).to.not.be.true;
         expect(title).to.eql('Sockerr');
-      })   
+      }) 
       .call(done);
-  });
-
-  it('should be able to login', function(done) {
-    client
-      .url('http://localhost:3000')
-      .element('.post-post', function(err, post) {
-        expect(post).to.not.exist
-      })
-      .then(helper.login(client))
-      .waitForExist('.post-post', 1000, function(err, post) {
-        expect(err).to.not.be.true
-        expect(post).to.be.true;
-      })
-      .call(done);     
   });
 
   it('should be able to see a new post instantly', function(done) {
     client
       .url('http://localhost:3000')
+      .then(helper.login(client))
+      .waitForExist('.post-post', 1000) 
       .waitForVisible('#body', 1000)
       .setValue('#body', 'Hello, World!')
       .click('#submit')
