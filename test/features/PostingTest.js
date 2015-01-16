@@ -5,7 +5,6 @@ var helper = require('../helpers/application');
 
 describe('Main page tests', function(){
 
-  this.timeout(9999999);
   var client = {};
 
   before(function(done) {

@@ -42,13 +42,13 @@ Interface.prototype.validLogin = function() {
     success: function(res) {
       var page = $(location).attr('href');
       if(res.result == 'correct') {
-          $('#signin').fadeOut('slow', function() {
-              $(document.body).load(page, function() {
-                $(this).fadeIn('slow', function() {
-                  _this.loginNotice(res.message);
-                });
-              });
+        $('#signin').fadeOut('slow', function() {
+          $(document.body).load(page, function() {
+            $(this).fadeIn('slow', function() {
+              _this.loginNotice(res.message);
             });
+          });
+        });
       }
       else {
         _this.displayErrors(res.message)
@@ -103,7 +103,6 @@ Interface.prototype.displayErrors = function(errorList) {
 };    
 
 Interface.prototype.loginNotice = function(message) {
-
   $('.tempMessages').html('<section class="flash notice">' + message + '</section>');
     var timeout = setTimeout(function() {
       $('.flash').fadeOut('slow', function() {
@@ -127,14 +126,14 @@ Interface.prototype.logout = function() {
 Interface.prototype.deletePost = function(post) {
   var _id = $(post).data('id')
   $.ajax({
-      url: '/posts',
-      type: 'DELETE',
-      data: {id: _id},
-      success: function(result) {
-        if(result == 'correct') {
-          socket.emit('delete-post', _id);
-        }
+    url: '/posts',
+    type: 'DELETE',
+    data: {id: _id},
+    success: function(result) {
+      if(result == 'correct') {
+        socket.emit('delete-post', _id);
       }
+    }
   });
 };
 

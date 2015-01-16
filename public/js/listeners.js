@@ -11,5 +11,5 @@ socket.on('new-post', function(data) {
 });
 
 socket.on('delete-post', function(_id) {
-    $('.post-post').find("[data-id='" + _id + "']").closest('.post-body').remove().fadeOut('slow');
+  $('.post-post').find("[data-id='" + _id + "']").closest('.post-body').remove().fadeOut('slow');
 });

@@ -30,7 +30,6 @@ describe ('User', function() {
       .setValue('#new-password', 'snozsnoz')
       .click('#new-user')
       .waitForExist('.post-post', 1000, function(err, post) {
-        client.saveScreenshot('hello1.png')
         expect(post).to.exist
       })
       .call(done);
@@ -45,7 +44,7 @@ describe ('User', function() {
         expect(val).to.be.true
       })
       .call(done)
-    })
+  })
 
   it('should be able to login', function(done) {
     client
