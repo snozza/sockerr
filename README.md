@@ -55,6 +55,10 @@ $ npm install
 Pre-Setup:
 
 '''
+Download the Selenium stand-alone server from http://http://www.seleniumhq.org/download/ then in a separate terminal run:
+
+$ java -jar /pathtofile/selenium-server-standalone-2.44.0.jar
+
 Ensure that MongoDB is installed and run a mongodb server daemon in a seperate terminal
 
 $ mongod
