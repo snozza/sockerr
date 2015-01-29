@@ -54,20 +54,21 @@ $ npm install
 
 Pre-Setup:
 
-'''
-Download the Selenium stand-alone server from http://http://www.seleniumhq.org/download/ then in a separate terminal run:
+```
+Download the Selenium stand-alone server from http://http://www.seleniumhq.org/download
+then in a separate terminal run:
 
 $ java -jar /pathtofile/selenium-server-standalone-2.44.0.jar
 
 Ensure that MongoDB is installed and run a mongodb server daemon in a seperate terminal
 
 $ mongod
-'''
+```
 
 Run the tests: 
 
 ```
-In order to easily set up a test database and tear-down things withe ease, please use the following test runners that I have created (casper_runner is for feature tests):
+Please use the following test runner (includes setup and teardown of server and database)
 
 $ node mocha_runner.js
 ```
