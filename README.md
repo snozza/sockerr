@@ -55,6 +55,10 @@ $ npm install
 Pre-Setup:
 
 ```
+Ensure that mocha is installed globally:
+
+$ npm install mocha -g
+
 Download the Selenium stand-alone server from http://http://www.seleniumhq.org/download
 then in a separate terminal run:
 
