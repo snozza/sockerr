@@ -52,13 +52,20 @@ $ cd sockerr
 $ npm install
 ```
 
+Pre-Setup:
+
+'''
+Ensure that MongoDB is installed and run a mongodb server daemon in a seperate terminal
+
+$ mongod
+'''
+
 Run the tests: 
 
 ```
 In order to easily set up a test database and tear-down things withe ease, please use the following test runners that I have created (casper_runner is for feature tests):
 
 $ node mocha_runner.js
-$ node casper_runner.js
 ```
 
 Start the node server and visit http://localhost:3000/
