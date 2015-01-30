@@ -59,7 +59,7 @@ Ensure that mocha is installed globally:
 
 $ npm install mocha -g
 
-Download the Selenium stand-alone server from http://http://www.seleniumhq.org/download
+Download the Selenium stand-alone server from http://www.seleniumhq.org/download
 then in a separate terminal run:
 
 $ java -jar /pathtofile/selenium-server-standalone-2.44.0.jar
