@@ -3,31 +3,29 @@ function Interface() {
 };
 
 Interface.prototype.loadPosts = function() {
-  console.log('got here');
   $.get('http://localhost:3000/posts', function(data) {
-    console.log(data)
-      $.each(data, function(index, post) {
-          $('<li class="post-body"><p class="post-user"><strong>' + post.full_name +'</strong> ' + post.createdAt.replace(/T/, ' ').replace(/\..+/, '') + '</p>' + post.body + 
-            '<br><button class="post-user delete" data-id=' + post._id + ' type="submit">Delete</button></li>').hide().prependTo('.post-post').fadeIn('slow');
-      });
+    $.each(data, function(index, post) {
+      $('<li class="post-body"><p class="post-user"><strong>' + post.full_name +'</strong> ' + post.createdAt.replace(/T/, ' ').replace(/\..+/, '') + '</p>' + post.body + 
+          '<br><button class="post-user delete" data-id=' + post._id + ' type="submit">Delete</button></li>').hide().prependTo('.post-post').fadeIn('slow');
     });
+  });
 };
 
 Interface.prototype.loadGlobalPosts = function() {
   $.get('http://localhost:3000/allposts', function(data) {
     $.each(data, function(index, post) {
       $('<li class="post-body"><p class="post-user"><strong>' + post.full_name +'</strong> ' + post.createdAt.replace(/T/, ' ').replace(/\..+/, '') + '</p>' + post.body + 
-            '<br><button class="post-user delete" data-id=' + post._id + ' type="submit">Delete</button></li>').hide().prependTo('.post-post').fadeIn('slow');
-      });
+          '<br><button class="post-user delete" data-id=' + post._id + ' type="submit">Delete</button></li>').hide().prependTo('.post-post').fadeIn('slow');
+    });
   });
 };
 
 Interface.prototype.makePost = function() {
   var body = $('#body')
-      $.post('http://localhost:3000/posts', {post: body.val()}, function(data) {
-          socket.emit('new-post', data);
-          body.val('');
-      });
+    $.post('http://localhost:3000/posts', {post: body.val()}, function(data) {
+      socket.emit('new-post', data);
+      body.val('');
+    });
 };
 
 Interface.prototype.validLogin = function() {
@@ -41,19 +39,16 @@ Interface.prototype.validLogin = function() {
     cache: false,
     success: function(res) {
       var page = $(location).attr('href');
-      if(res.result == 'correct') {
-        $('#signin').fadeOut('slow', function() {
-          $(document.body).load(page, function() {
-            $(this).fadeIn('slow', function() {
-              _this.loginNotice(res.message);
-            });
+      $('#signin').fadeOut('slow', function() {
+        $(document.body).load(page, function() {
+          $(this).fadeIn('slow', function() {
+            _this.loginNotice(res);
           });
         });
-      }
-      else {
-        _this.displayErrors(res.message)
-
-      }
+      });
+    },
+    error: function(res) {
+      _this.displayErrors(res.responseJSON)
     }
   });
 };
@@ -72,24 +67,22 @@ Interface.prototype.signup = function() {
     cache: false,
     success: function(res) {
       var page = $(location).attr('href');
-      if(res.result == 'correct') {
-        $('#signup').fadeOut('slow', function() {
-          $(document.body).load(page, function() {
-            $(this).fadeIn('slow', function() {
-              _this.loginNotice(res.message);
-            });
+      $('#signup').fadeOut('slow', function() {
+        $(document.body).load(page, function() {
+          $(this).fadeIn('slow', function() {
+            _this.loginNotice(res.responseJSON);
           });
         });
-      }
-      else {
-        _this.displayErrors(res);
-      }
+      });
+    },
+    error: function(res) {
+      _this.displayErrors(res.responseJSON);
     }
   });
 };
 
 Interface.prototype.displayErrors = function(errorList) {
-  console.log(this.timeout);
+  var errorList = errorList.message
   clearTimeout(this.timeout);
     if(errorList.length > 0) {
       $('.tempMessages').html('<ul class="flash error"></ul>');
@@ -103,6 +96,7 @@ Interface.prototype.displayErrors = function(errorList) {
 };    
 
 Interface.prototype.loginNotice = function(message) {
+  var message = message.message
   $('.tempMessages').html('<section class="flash notice">' + message + '</section>');
     var timeout = setTimeout(function() {
       $('.flash').fadeOut('slow', function() {
@@ -115,10 +109,8 @@ Interface.prototype.logout = function() {
     type: 'DELETE',
     success: function(result) {
       var page = $(location).attr('href');
-      if(result == 'correct') {
-        socket.disconnect();
-        $(document.body).load(page).fadeIn('slow');
-      }
+      socket.disconnect();
+      $(document.body).load(page).fadeIn('slow');
     }
   });
 };
@@ -130,9 +122,7 @@ Interface.prototype.deletePost = function(post) {
     type: 'DELETE',
     data: {id: _id},
     success: function(result) {
-      if(result == 'correct') {
         socket.emit('delete-post', _id);
-      }
     }
   });
 };
