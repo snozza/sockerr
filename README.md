@@ -52,12 +52,15 @@ $ cd sockerr
 $ npm install
 ```
 
-Pre-Setup:
+Setup:
 
 ```
 Ensure that mocha is installed globally:
 
 $ npm install mocha -g
+
+Download the chromedriver executable from http://chromedriver.storage.googleapis.com/index.html and place it on your path (e.g. /usr/local/bin).
+Futher information can be found at https://code.google.com/p/selenium/wiki/ChromeDriver
 
 Download the Selenium stand-alone server from http://http://www.seleniumhq.org/download
 then in a separate terminal run:
