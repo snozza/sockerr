@@ -13,6 +13,7 @@ var generateKey = require('./lib/scripts/keyGen');
 
 var dbUri = process.env.MONGOHQ_URL || 'mongodb://localhost/chitter_development';
 var db = mongoose.connect(dbUri);
+var port = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
@@ -64,7 +65,7 @@ module.exports = server;
 
 if(!module.parent) {
   var env = require('./lib/config/dev_env');
-  server.listen(3000, function() {
-    console.log('listening on 3000');
+  server.listen(port, function() {
+    console.log('listening on ' + port);
   })
 };
