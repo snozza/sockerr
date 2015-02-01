@@ -56,6 +56,5 @@ describe('Main page tests', function(){
         expect(val).to.be.false
       })
       .call(done);
-
   });
 });

@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var env = require('./lib/config/test_env');
 
 var dbUri = process.env.MONGOHQ_URL;
+var port = process.env.PORT || 3000;
 
 if(mongoose.connection.db) { 
   mongoose.disconnect(function() {
@@ -19,8 +20,7 @@ else {
   });
 };
 
-var server = app.listen(3000, function() {
-  var port = 3000;
+var server = app.listen(port, function() {  
   process.env.URL = 'http://localhost:' + port;
   return glob('test', function(err, filename) {
     var child = spawn('mocha', ['--recursive'].concat(filename));

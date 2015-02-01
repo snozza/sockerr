@@ -21,7 +21,7 @@ describe ('User', function() {
     client
       .url('http://localhost:3000')
       .click('#signupbutton')
-      .waitForVisible('#new-email', 1000, function(err, field) {
+      .waitForVisible('#new-email', 2000, function(err, field) {
        client.saveScreenshot('hello.png')
       })
       .setValue('#new-email', 'andrew@andrew.com')
@@ -29,7 +29,7 @@ describe ('User', function() {
       .setValue('#new-name', 'Andrew Snead')
       .setValue('#new-password', 'snozsnoz')
       .click('#new-user')
-      .waitForExist('.post-post', 1000, function(err, post) {
+      .waitForExist('.post-post', 2000, function(err, post) {
         expect(post).to.exist
       })
       .call(done);
