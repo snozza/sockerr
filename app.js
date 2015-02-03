@@ -61,11 +61,11 @@ app.use(function(err, req, res, next) {
   });
 });
 
-module.exports = server;
-
 if(!module.parent) {
   var env = require('./lib/config/dev_env');
   server.listen(port, function() {
     console.log('listening on ' + port);
   })
 };
+
+module.exports = server;
