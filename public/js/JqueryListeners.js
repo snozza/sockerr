@@ -27,14 +27,14 @@ $(document).ready(function() {
   });
 
   $('#signupbutton').on('click', function() {
-    $('#signin').fadeOut('slow', function() {
-      $('#signup').fadeIn('slow');
+    $('#signin').fadeOut('fast', function() {
+      $('#signup').fadeIn('fast');
     });
   });
    
   $('#loginbutton').on('click', function() {
-    $('#signup').fadeOut('slow', function() {
-      $('#signin').fadeIn('slow');
+    $('#signup').fadeOut('fast', function() {
+      $('#signin').fadeIn('fast');
     });
   });
 

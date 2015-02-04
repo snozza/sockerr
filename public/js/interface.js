@@ -6,7 +6,7 @@ Interface.prototype.loadPosts = function() {
   $.get('http://localhost:3000/posts', function(data) {
     $.each(data, function(index, post) {
       $('<li class="post-body"><p class="post-user"><strong>' + post.full_name +'</strong> ' + post.createdAt.replace(/T/, ' ').replace(/\..+/, '') + '</p>' + post.body + 
-          '<br><button class="post-user delete" data-id=' + post._id + ' type="submit">Delete</button></li>').hide().prependTo('.post-post').fadeIn('slow');
+          '<br><button class="post-user delete" data-id=' + post._id + ' type="submit">Delete</button></li>').hide().prependTo('.post-post').fadeIn('fast');
     });
   });
 };
@@ -15,7 +15,7 @@ Interface.prototype.loadGlobalPosts = function() {
   $.get('http://localhost:3000/allposts', function(data) {
     $.each(data, function(index, post) {
       $('<li class="post-body"><p class="post-user"><strong>' + post.full_name +'</strong> ' + post.createdAt.replace(/T/, ' ').replace(/\..+/, '') + '</p>' + post.body + 
-          '<br><button class="post-user delete" data-id=' + post._id + ' type="submit">Delete</button></li>').hide().prependTo('.post-post').fadeIn('slow');
+          '<br><button class="post-user delete" data-id=' + post._id + ' type="submit">Delete</button></li>').hide().prependTo('.post-post').fadeIn('fast');
     });
   });
 };
@@ -39,9 +39,9 @@ Interface.prototype.validLogin = function() {
     cache: false,
     success: function(res) {
       var page = $(location).attr('href');
-      $('#signin').fadeOut('slow', function() {
+      $('#signin').fadeOut('fast', function() {
         $(document.body).load(page, function() {
-          $(this).fadeIn('slow', function() {
+          $(this).fadeIn('fast', function() {
             _this.loginNotice(res);
           });
         });
@@ -67,9 +67,9 @@ Interface.prototype.signup = function() {
     cache: false,
     success: function(res) {
       var page = $(location).attr('href');
-      $('#signup').fadeOut('slow', function() {
+      $('#signup').fadeOut('fast', function() {
         $(document.body).load(page, function() {
-          $(this).fadeIn('slow', function() {
+          $(this).fadeIn('fast', function() {
             _this.loginNotice(res.responseJSON);
           });
         });
@@ -90,7 +90,7 @@ Interface.prototype.displayErrors = function(errorList) {
           $('.flash').append('<li>' + errorList[i] + '</li>');
         }       
         this.timeout = setTimeout(function() {
-        $('.flash').fadeOut('slow', function() {
+        $('.flash').fadeOut('fast', function() {
           $(this).remove() })}, 5000);
       }
 };    
@@ -99,7 +99,7 @@ Interface.prototype.loginNotice = function(message) {
   var message = message.message
   $('.tempMessages').html('<section class="flash notice">' + message + '</section>');
     var timeout = setTimeout(function() {
-      $('.flash').fadeOut('slow', function() {
+      $('.flash').fadeOut('fast', function() {
         $(this).remove() })}, 5000);
 };   
 
@@ -110,7 +110,7 @@ Interface.prototype.logout = function() {
     success: function(result) {
       var page = $(location).attr('href');
       socket.disconnect();
-      $(document.body).load(page).fadeIn('slow');
+      $(document.body).load(page).fadeIn('fast');
     }
   });
 };

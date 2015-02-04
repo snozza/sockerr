@@ -1,6 +1,7 @@
 var server = require('../app');
 var expect = require('chai').expect;
 var http = require('http');
+var dbCleaner = require('./helpers/dbCleaner')
 
 describe('Working Homepage', function() {
 

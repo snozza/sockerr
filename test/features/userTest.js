@@ -12,6 +12,11 @@ describe ('User', function() {
     client.init(done);
   });
 
+  beforeEach(function(done) {
+    new User({username: "test", email: "test@test.com",
+              full_name: "tester tesing", password: "test"}).save(done);
+  });
+
   after(function(done) {
     client.end(done);
   });

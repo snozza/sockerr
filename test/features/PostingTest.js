@@ -2,17 +2,19 @@ var webdriverio = require('webdriverio');
 var expect = require('chai').expect;
 var User = require('../../lib/models/User');
 var helper = require('../helpers/application');
+var dbCleaner = require('../helpers/dbCleaner');
 
 describe('Main page tests', function(){
 
   var client = {};
 
   before(function(done) {
-    new User({username: "test", email: "test@test.com",
-              full_name: "tester tesing", password: "test"}).save(function() {
-      client = webdriverio.remote({ desiredCapabilities: {browserName: 'chrome'} });
-      client.init(done);
-    });
+    client = webdriverio.remote({ desiredCapabilities: {browserName: 'chrome'} });
+    client.init(done);
+  });
+
+  beforeEach(function(done) {
+    helper.newUser(done)
   });
 
   after(function(done) {
@@ -29,32 +31,37 @@ describe('Main page tests', function(){
       .call(done);
   });
 
-  it('should be able to see a new post instantly', function(done) {
+  it('should be able to delete a post', function(done) {
+    this.timeout(999999);
     client
       .url('http://localhost:3000')
+      .waitForVisible('#email', 2000)
       .then(helper.login(client))
-      .waitForExist('.post-post', 1000) 
-      .waitForVisible('#body', 1000)
+      .waitForExist('#body', 5000)
       .setValue('#body', 'Hello, World!')
       .click('#submit')
-      .waitForExist('.post-body', 1000)
-      .getText('.post-body', function(err, val) {
-        expect(val).to.contain('Hello, World!');
-      })
-      .call(done);
-  });
-
-  it('should be able to delete a post', function(done) {
-    client.
-      url('http://localhost:3000')
-      .getAttribute('.delete', 'data-id', function(err, data) {
-        console.log(data);
-      })
-      .click('.delete')
+      .waitForExist('.post-body', 3000)
+      .click('.delete')      
       .waitForExist('.delete', 2000, true)
       .isExisting('.delete', function(err, val) {
         expect(val).to.be.false
       })
       .call(done);
   });
+
+  it('should be able to see a new post instantly', function(done) {
+    this.timeout(999999);
+    client
+      .click('#logout')
+      .waitForVisible('#email', 5000)
+      .then(helper.login(client))
+      .waitForExist('#body', 5000)
+      .setValue('#body', 'Hello, World!')
+      .click('#submit')
+      .waitForExist('.post-body', 5000)
+      .getText('.post-body', function(err, val) {
+        expect(val).to.contain('Hello, World!');
+      })
+      .call(done);
+  });  
 });
