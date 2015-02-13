@@ -22,10 +22,10 @@ Interface.prototype.loadGlobalPosts = function() {
 
 Interface.prototype.makePost = function() {
   var body = $('#body')
-    $.post('http://localhost:3000/posts', {post: body.val()}, function(data) {
-      socket.emit('new-post', data);
-      body.val('');
-    });
+  $.post('http://localhost:3000/posts', {post: body.val()}, function(data) {
+    socket.emit('new-post', data);
+    body.val('');
+  });
 };
 
 Interface.prototype.validLogin = function() {
@@ -92,7 +92,7 @@ Interface.prototype.displayErrors = function(errorList) {
         this.timeout = setTimeout(function() {
         $('.flash').fadeOut('fast', function() {
           $(this).remove() })}, 5000);
-      }
+    }
 };    
 
 Interface.prototype.loginNotice = function(message) {

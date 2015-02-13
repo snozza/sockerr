@@ -2,14 +2,14 @@ var expect = require('chai').expect
 var socket = require('socket.io');
 var io = require('socket.io-client');
 
-describe('Server should receive and action socket emissions', function() {
+describe('Server receives and actions socket emissions', function() {
 
   var options = {
     'transports' : ['websocket'],
-    'forceNew': true
+    'forceNew': true //Just incase you want to connect multiple sockets
   };
 
-  it('should emit new-post with data', function(done) {
+  it('responds by echoing the client emission', function(done) {
     var socket = io.connect(process.env.URL, options);
       socket.on('new-post', function(data) {
         expect(data).to.eql('testData');
