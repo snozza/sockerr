@@ -5,7 +5,6 @@ module.exports =
 
 afterEach(function(done) {
   mongoose.connection.db.dropDatabase(function() {
-    console.log('done')
     done();
   })
 });

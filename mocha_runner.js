@@ -24,6 +24,7 @@ var server = app.listen(port, function() {
   process.env.URL = 'http://localhost:' + port;
   return glob('test', function(err, filename) {
     var child = spawn('mocha', ['--recursive'].concat(filename));
+    var selenium = spawn("java", ['-jar', 'selenium-server-standalone-2.44.0.jar']);
     child.stdout.on('data', function(msg) {
       return process.stdout.write(msg);
     });
