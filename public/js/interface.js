@@ -3,22 +3,32 @@ function Interface() {
 };
 
 Interface.prototype.loadPosts = function() {
+  _this = this;
   $.get('http://localhost:3000/posts', function(data) {
-    $.each(data, function(index, post) {
-      $('<li class="post-body"><p class="post-user"><strong>' + post.full_name +'</strong> ' + post.createdAt.replace(/T/, ' ').replace(/\..+/, '') + '</p>' + post.body + 
-          '<br><button class="post-user delete" data-id=' + post._id + ' type="submit">Delete</button></li>').hide().prependTo('.post-post').fadeIn('fast');
+    var posts = '';
+    $.each(data.reverse(), function(index, post) {
+      posts += '<li class="post-body"><p class="post-user"><strong>' + post.full_name +'</strong> ' + post.createdAt.replace(/T/, ' ').replace(/\..+/, '') + '</p>' + post.body + 
+          '<br><button class="post-user delete" data-id=' + post._id + ' type="submit">Delete</button></li>';
     });
+   _this.appendPosts(posts); 
   });
 };
 
 Interface.prototype.loadGlobalPosts = function() {
+  _this = this;
   $.get('http://localhost:3000/allposts', function(data) {
-    $.each(data, function(index, post) {
-      $('<li class="post-body"><p class="post-user"><strong>' + post.full_name +'</strong> ' + post.createdAt.replace(/T/, ' ').replace(/\..+/, '') + '</p>' + post.body + 
-          '<br><button class="post-user delete" data-id=' + post._id + ' type="submit">Delete</button></li>').hide().prependTo('.post-post').fadeIn('fast');
+    var posts = '';
+    $.each(data.reverse(), function(index, post) {
+      posts += '<li class="post-body"><p class="post-user"><strong>' + post.full_name +'</strong> ' + post.createdAt.replace(/T/, ' ').replace(/\..+/, '') + '</p>' + post.body + 
+          '<br><button class="post-user delete" data-id=' + post._id + ' type="submit">Delete</button></li>';
     });
+    _this.appendPosts(posts);
   });
 };
+
+Interface.prototype.appendPosts = function(posts) {
+  $('.post-post').append(posts);
+}
 
 Interface.prototype.makePost = function() {
   var body = $('#body')
