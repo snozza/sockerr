@@ -19,7 +19,6 @@ The end result is a bare-bones Twitter clone that allows users to sign up, log i
 * Bcrypt
 * Mocha
 * Socket.io
-* Casperjs
 * jQuery
 
 ### Learning Outcomes
