@@ -32,7 +32,6 @@ I acheived the single page and real-time aspects relatively easily after extensi
 - [ ] Improve the CSS and HTML (Current design is rather simple - using bootstrap).
 - [ ] Add hashtags and other Twitter related content
 - [ ] Find better testing tools for feature testing AJAX and JQuery.
-- [ ] Further exploit MongoDB/features of noSQL database
 
 ### Instructions
 
