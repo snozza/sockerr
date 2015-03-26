@@ -1,8 +1,6 @@
 Sockerr - A Twitter clone (version 2);
 ========================
 
-## Sockerr (version 2)
-
 ### Introduction
 
 This is a redo of the Chitter - Twitter clone project (original named bitter_js).
