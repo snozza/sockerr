@@ -3,7 +3,7 @@ Sockerr - A Twitter clone (version 2);
 
 ### Introduction
 
-Twitter clone, made in order to try out some of the feature testing tools such as Caper Js and Selenium. Also to test socket.io and other misc stuff.
+Twitter clone, made in order to try out some of the feature testing tools such as Casper and Selenium. Also to test socket.io and other misc stuff.
 
 ### Languages/Platforms/Tools
 
