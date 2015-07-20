@@ -3,10 +3,7 @@ Sockerr - A Twitter clone (version 2);
 
 ### Introduction
 
-This is a redo of the Chitter - Twitter clone project (original named bitter_js).
-I decided to redo the original clone done in node.js in order to completely test drive the project. Casperjs was chosen for the feature testing, while mocha was utilised for unit tests.
-The goals were to get familiar with bootstrap, make a single page web app, and utilise sockets to ensure everythign was updated in realtime.
-The end result is a bare-bones Twitter clone that allows users to sign up, log in, post/delete bites, and also see instant updates of other user's actions.
+Twitter clone, made in order to try out some of the feature testing tools such as Caper Js and Selenium. Also to test socket.io and other misc stuff.
 
 ### Languages/Platforms/Tools
 
@@ -14,6 +11,8 @@ The end result is a bare-bones Twitter clone that allows users to sign up, log i
 * Express
 * MongoDB
 * Mongoose
+* Casper
+* Selenium WebDriver
 * Bcrypt
 * Mocha
 * Socket.io
@@ -21,7 +20,7 @@ The end result is a bare-bones Twitter clone that allows users to sign up, log i
 
 ### Learning Outcomes
 
-I acheived the single page and real-time aspects relatively easily after extensively using sockets and JQuery in previous projects. The biggest issue was feature testing. I had hoped that Casperjs in isolation or combination with mocha would make this quite simple, and I was very pleased at first. However, Casperjs fell apart when it came to the extensive use of AJAX and JQuery (seems to be an issue with phantomjs headless browser). Other than that slight hiccup, this was a very good refresher project.
+Refresher project - Casper didn't turn out to be good with SPAs. Prefer Selenium. Ignore the lack of structure/modularisation of app.
 
 
 ### To-do List
